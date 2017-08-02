@@ -1,3 +1,4 @@
+require('babel-polyfill');
 import Inferno from 'inferno';
 import InfernoServer from 'inferno-server';
 
