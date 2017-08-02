@@ -1,0 +1,8 @@
+C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.deps.json
+C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.runtimeconfig.json
+C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.runtimeconfig.dev.json
+C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.dll
+C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.pdb
+C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.AssemblyInfo.cs
+C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.dll
+C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.pdb
