@@ -9654,9 +9654,6 @@
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
-      "files": {
-        "lib/netcoreapp1.1/aspnet-inferno-redux-tut.dll": "C:\\Working\\aspnet-inferno-redux-tut\\bin\\placeholder\\netcoreapp1.1\\aspnet-inferno-redux-tut.dll"
-      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
@@ -9666,11 +9663,24 @@
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
+          "Microsoft.AspNetCore": {
             "target": "Package",
             "version": "1.1.2"
           },
-          "Microsoft.AspNetCore": {
+          "Microsoft.Extensions.Logging.Debug": {
+            "target": "Package",
+            "version": "1.1.2"
+          },
+          "Microsoft.AspNetCore.NodeServices": {
+            "target": "Package",
+            "version": "(, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "1.1.2",
+            "autoReferenced": true
+          },
+          "Microsoft.VisualStudio.Web.BrowserLink": {
             "target": "Package",
             "version": "1.1.2"
           },
@@ -9681,18 +9691,6 @@
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "1.1.2"
-          },
-          "Microsoft.Extensions.Logging.Debug": {
-            "target": "Package",
-            "version": "1.1.2"
-          },
-          "Microsoft.VisualStudio.Web.BrowserLink": {
-            "target": "Package",
-            "version": "1.1.2"
-          },
-          "Microsoft.AspNetCore.NodeServices": {
-            "target": "Package",
-            "version": "(, )"
           }
         }
       }

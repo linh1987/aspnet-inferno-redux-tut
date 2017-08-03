@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.NodeServices;
+using aspnet_inferno_redux_tut.Middlewares;
 
 namespace aspnet_inferno_redux_tut
 {
@@ -52,31 +55,7 @@ namespace aspnet_inferno_redux_tut
 
             app.UseStaticFiles();
 
-            app.Use(async (context, next) => {
-                    var newContent = string.Empty;
-
-                    var existingBody = context.Response.Body;
-
-                    using (var newBody = new MemoryStream())
-                    {
-                        // We set the response body to our stream so we can read after the chain of middlewares have been called.
-                        context.Response.Body = newBody;
-
-                        await next();
-                         // Set the stream back to the original.
-                        context.Response.Body = existingBody;
-
-                        newBody.Seek(0, SeekOrigin.Begin);
-
-                        // newContent will be `Hello`.
-                        newContent = new StreamReader(newBody).ReadToEnd();
-
-                        newContent = newContent.Replace("<!--app-->", "id=\"app2\"");
-
-                        // Send our modified content to the response body.
-                        await context.Response.WriteAsync(newContent);
-                    }
-            }); 
+            app.UseSSRMiddleware();
 
             app.UseMvc(routes =>
             {

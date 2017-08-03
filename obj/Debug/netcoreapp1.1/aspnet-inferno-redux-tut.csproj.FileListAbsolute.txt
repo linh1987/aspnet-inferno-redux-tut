@@ -6,3 +6,4 @@ C:\Working\aspnet-inferno-redux-tut\bin\Debug\netcoreapp1.1\aspnet-inferno-redux
 C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.AssemblyInfo.cs
 C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.dll
 C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.pdb
+C:\Working\aspnet-inferno-redux-tut\obj\Debug\netcoreapp1.1\aspnet-inferno-redux-tut.csprojResolveAssemblyReference.cache
