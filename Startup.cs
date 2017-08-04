@@ -55,7 +55,7 @@ namespace aspnet_inferno_redux_tut
 
             app.UseStaticFiles();
 
-            app.UseSSRMiddleware();
+            //app.UseSSRMiddleware();
 
             app.UseMvc(routes =>
             {

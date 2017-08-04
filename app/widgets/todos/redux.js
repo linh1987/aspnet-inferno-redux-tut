@@ -1,13 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga'
 import * as actionCreators from './action-creators.js';
 import * as actions from './actions.js';
-import todoSaga from './sagas';
 
 function findMaxId(todos) {
     var allIds = todos.map(m => m.id);
     return Math.max(...allIds.concat([0]));
 }
+
 var defaultState = {
     todos: [],
     editContent: "",
@@ -66,18 +65,17 @@ export let createTodoActions = (todoStore) => {
     };
 }
 
-const sagaMiddleware = createSagaMiddleware()
-
+export let reducer = todoReducer;
 // store
-export let createTodoStore = (state) =>  {    
-    let newState = {
-        ...defaultState,
-        ...state
-    };
+//export let createTodoStore = (state) =>  {    
+//    let newState = {
+//        ...defaultState,
+//        ...state
+//    };
 
-    const todoStore =  createStore(todoReducer, newState, applyMiddleware(sagaMiddleware));
+//    const todoStore =  createStore(todoReducer, newState, applyMiddleware(sagaMiddleware));
 
-    sagaMiddleware.run(todoSaga);
+//    sagaMiddleware.run(todoSaga);
 
-    return todoStore;
-}
+//    return todoStore;
+//}

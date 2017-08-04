@@ -19,4 +19,4 @@ function* todoSaga() {
   yield takeLatest(actions.LOAD_TODO, fetchTodos);
 }
 
-export default todoSaga;
+export let saga = todoSaga;

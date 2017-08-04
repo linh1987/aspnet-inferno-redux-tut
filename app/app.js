@@ -1,43 +1,25 @@
 import "babel-polyfill";
+import windowAvailable from './utils/windowAvailable';
+import createSagaMiddleware from 'redux-saga'
+import { createStore, applyMiddleware  } from 'redux';
+import { createWidgetsFunction, reducers, sagas } from './widgets/index';
 
-import {
-    createTodoStore,
-    createTodoActions
-} from './redux.js'
-import {
-    render,
-    getInitialState
-} from './index.js';
-import * as actionCreators from './action-creators.js';
+const sagaMiddleware = createSagaMiddleware();
 
-let initialState = null;
+export let store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
-var initialStateString = getInitialState();
-
-if (initialStateString) {
-    initialState = JSON.parse(initialStateString);
+for (var i = 0; i < sagas.length; i++) {
+    sagaMiddleware.run(sagas[i]);
 }
 
-export let todoStore = createTodoStore(initialState)
-let todoActions = createTodoActions(todoStore);
-var windowAvailable = false;
-try {
-    windowAvailable = !!(window || null);
-} catch (e) {
+var widgets = createWidgetsFunction(store)
 
-}
-
-if (windowAvailable) {
-    todoStore.subscribe(() => {
-        render(todoStore.getState(), todoActions);
-    });
-}
-
-
-if (!initialState) {
-    todoStore.dispatch(actionCreators.createLoadTodoAction());
-} else {
-    if (windowAvailable) {
-        render(todoStore.getState(), todoActions);
+store.subscribe(() => {
+    for (var i = 0; i < widgets.renderFunctions.length; i++) {
+        widgets.renderFunctions[i]();
     }
+})
+
+for (var i = 0; i < widgets.initFunctions.length; i++) {
+    widgets.initFunctions[i]();
 }
