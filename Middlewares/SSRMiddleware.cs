@@ -24,6 +24,12 @@ namespace aspnet_inferno_redux_tut.Middlewares
         {
             var newContent = string.Empty;
 
+            if (context.Request.Path.ToString().Contains("api"))
+            {
+                await this._next(context);
+                return;
+            }
+
             var existingBody = context.Response.Body;
 
             using (var newBody = new MemoryStream())

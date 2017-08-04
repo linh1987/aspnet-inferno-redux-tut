@@ -1,4 +1,4 @@
-﻿import 'node-fetch';
+﻿var fetch = require('node-fetch');
 
 /**
  * Parses the JSON returned by a network request

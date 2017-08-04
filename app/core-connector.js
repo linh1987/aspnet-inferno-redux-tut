@@ -10,9 +10,22 @@ require('babel-register')({
 });
 
 const appRenderder = require('./index.js');
+const app = require('./app.js');
 
-module.exports = function (callback, todos) {
-    var result = appRenderder.renderServer(JSON.parse(todos));
+const renderApp = (state, callback) => {
+    if (state.todoLoaded) {
+        const result = appRenderder.renderServer(state);
 
-    callback(null, result);
+        callback(null, result);
+    }
+}
+
+module.exports = function (callback) {
+    const todoStore = app.todoStore;
+
+    renderApp(todoStore.getState(), callback);
+
+    todoStore.subscribe(() => {
+        renderApp(todoStore.getState(), callback);
+    })
 };

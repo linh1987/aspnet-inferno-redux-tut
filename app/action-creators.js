@@ -27,3 +27,22 @@ export function createEditContentAction(content) {
         content
     }
 }
+
+export function createLoadTodoAction() {
+    return {
+        type: actions.LOAD_TODO
+    };
+}
+
+export function createLoadTodoSuccessfulAction(todos) {
+    return {
+        type: actions.LOAD_TODO_SUCCESSFUL,
+        todos
+    };
+}
+
+export function createLoadTodoErrorAction(todos) {
+    return {
+        type: actions.LOAD_TODO_ERROR
+    };
+}

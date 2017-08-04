@@ -55,11 +55,22 @@ export var render = (todoData, todoActions) => {
 };
 
 export var getInitialState = () => {
+    var windowAvailable = false;
+    try {
+        windowAvailable = !!(window || null);
+    } catch (e) {
+
+    }
+
+    if (!windowAvailable) {
+        return null;
+    }
+
     const appContainer = document.getElementById('app');
 
-    if (appContainer.childNodes.length > 0) {
+    if (appContainer.childNodes.length > 0 && appContainer.firstChild.getAttribute) {
         return appContainer.firstChild.getAttribute("initialState");
     }
 
-    return "{}";
+    return null;
 }

@@ -1,22 +1,36 @@
 import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga'
 import * as actionCreators from './action-creators.js';
 import * as actions from './actions.js';
+import todoSaga from './sagas';
 
 function findMaxId(todos) {
     var allIds = todos.map(m => m.id);
     return Math.max(...allIds.concat([0]));
 }
-
-// reducer
-function todoReducer(state = {
+var defaultState = {
     todos: [],
     editContent: "",
     error: "",
+    todoLoaded: false,
     loading: false
-}, action) {
+}
+// reducer
+function todoReducer(state = defaultState, action) {
     const newState = state;
 
     switch (action.type) {
+        case actions.LOAD_TODO: 
+            newState.loading = true;
+            break;
+        case actions.LOAD_TODO_SUCCESSFUL: 
+            newState.todos = action.todos;
+            newState.todoLoaded = true;
+            newState.loading = false;
+            break;
+        case actions.LOAD_TODO_ERROR: 
+            newState.loading = false;
+            break;
         case actions.ADD_TODO:
             if (!newState.editContent)
                 return state;
@@ -26,18 +40,21 @@ function todoReducer(state = {
                 completed: false
             });
             newState.editContent = "";
-            return newState;
+            break;
         case actions.REMOVE_TODO:
             newState.todos = newState.todos.filter(m => m.id !== action.id)
-            return newState; 
+            break;
         case actions.TOGGLE_TODO:
             newState.todos.forEach(m => m.completed = m.id == action.id ? !m.completed : m.completed)
-            return newState;
+            break;
         case actions.EDIT_CONTENT:
             newState.editContent = action.content;
+            break;
         default:
             return state;
     }
+
+    return newState;
 }
 
 export let createTodoActions = (todoStore) => {
@@ -49,5 +66,18 @@ export let createTodoActions = (todoStore) => {
     };
 }
 
+const sagaMiddleware = createSagaMiddleware()
+
 // store
-export let createTodoStore = (state) => createStore(todoReducer, state);
+export let createTodoStore = (state) =>  {    
+    let newState = {
+        ...defaultState,
+        ...state
+    };
+
+    const todoStore =  createStore(todoReducer, newState, applyMiddleware(sagaMiddleware));
+
+    sagaMiddleware.run(todoSaga);
+
+    return todoStore;
+}
