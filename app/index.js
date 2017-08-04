@@ -37,19 +37,29 @@ var AddTodo = ({ editContent, actions }) => {
     );
 };
 
-var TodoWidget = ({ actions, editContent, todos }) => {
-    return (<div>
-        <TodoList actions={actions} todos={todos} />
-        <AddTodo actions={actions} editContent={editContent} />
+var TodoWidget = ({ actions, todoData, renderJson }) => {
+    return (<div initialState={JSON.stringify(todoData)}>
+        <TodoList actions={actions} todos={todoData.todos} />
+        <AddTodo actions={actions} editContent={todoData.editContent} />
     </div>);
 }
 
-export var renderServer = (todoData) => {
-    return InfernoServer.renderToString(<TodoWidget actions={todoData.actions} editContent={todoData.editContent} todos={todoData.todos} />);
+export var renderServer = (todoData, todoActions) => {
+    return InfernoServer.renderToString(<TodoWidget actions={todoData.actions} todoData={todoData} renderJson={true} />);
 }
 
-export var render = (todoData) => {
-    Inferno.render(<TodoWidget actions={todoData.actions} editContent={todoData.editContent} todos={todoData.todos} />,
+export var render = (todoData, todoActions) => {
+    Inferno.render(<TodoWidget actions={todoActions} todoData={todoData} />,
         document.getElementById('app')
     );
 };
+
+export var getInitialState = () => {
+    const appContainer = document.getElementById('app');
+
+    if (appContainer.childNodes.length > 0) {
+        return appContainer.firstChild.getAttribute("initialState");
+    }
+
+    return "{}";
+}

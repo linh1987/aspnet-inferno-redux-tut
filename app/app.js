@@ -1,9 +1,13 @@
 
-import {todoStore} from './redux.js'
-import {render} from './index.js';
+import { createTodoStore, createTodoActions } from './redux.js'
+import { render, getInitialState } from './index.js';
+
+let initialState = JSON.parse(getInitialState());
+let todoStore = createTodoStore(initialState)
+let todoActions = createTodoActions(todoStore);
 
 todoStore.subscribe(() => {
-    render(todoStore.getState());
+    render(todoStore.getState(), todoActions);
 });
 
-render(todoStore.getState());
+render(todoStore.getState(), todoActions);

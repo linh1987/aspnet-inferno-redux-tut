@@ -3,3 +3,6 @@ export const ADD_TODO = "ADD_TODO";
 export const TOGGLE_TODO = "TOGGLE_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
 export const EDIT_CONTENT = "EDIT_CONTENT";
+export const LOAD_TODO = "LOAD_TODO";
+export const LOAD_TODO_SUCCESSFUL = "LOAD_TODO_SUCCESSFUL";
+export const LOAD_TODO_ERROR = "LOAD_TODO_ERROR";

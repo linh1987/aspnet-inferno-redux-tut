@@ -11,7 +11,8 @@ require('babel-register')({
 
 const appRenderder = require('./index.js');
 
-module.exports = function (callback) {
-    var result = appRenderder.renderServer({ todos: [{id: 1, content: "asdasd", completed: false}] });;
+module.exports = function (callback, todos) {
+    var result = appRenderder.renderServer(JSON.parse(todos));
+
     callback(null, result);
 };

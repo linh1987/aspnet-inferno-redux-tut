@@ -6,7 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    'main': './app/app.js'
+      'main': './app/app.js'
   },
 
   module: {
@@ -48,14 +48,17 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'wwwroot/dist')
+    path: path.resolve(__dirname, 'wwwroot/dist'),
+    publicPath: '/dist'
   },
 
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
-      template: 'index.html',
-      inject: true
+      template: 'appscript.ejs',
+      inject: true, 
+      filename: path.resolve(__dirname, 'Views/Shared/_AppScript.cshtml'),
+      chunks: ['main']
     }),
     new ExtractTextPlugin('styles.[hash].css')
   ]

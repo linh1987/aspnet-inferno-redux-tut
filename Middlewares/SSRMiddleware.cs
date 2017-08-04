@@ -42,7 +42,7 @@ namespace aspnet_inferno_redux_tut.Middlewares
                 newContent = new StreamReader(newBody).ReadToEnd();
 
                 //newContent = newContent.Replace("<!--app-->", MyAction();
-                var renderedHtml = await _nodeServices.InvokeAsync<string>("./app/temp.js", "{todo:[]}");
+                var renderedHtml = await _nodeServices.InvokeAsync<string>(SSRScriptPath.Path, "{\"todos\":[{\"id\":1,\"completed\":false,\"content\":\"asdasd\"}], \"editContent\": \"\"}");
 
                 newContent = newContent.Replace("<!--app-->", renderedHtml);
                 // Send our modified content to the response body.

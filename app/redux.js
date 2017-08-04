@@ -11,12 +11,8 @@ function findMaxId(todos) {
 function todoReducer(state = {
     todos: [],
     editContent: "",
-    actions: {
-        addTodo: () => { todoStore.dispatch(actionCreators.createAddTodoAction()) },
-        removeTodo: (id) => { todoStore.dispatch(actionCreators.createRemoveTodoAction(id)) },
-        toggleTodo: (id) => { todoStore.dispatch(actionCreators.createToggleTodoAction(id)) },
-        editContent: content => { todoStore.dispatch(actionCreators.createEditContentAction(content)) }
-    }
+    error: "",
+    loading: false
 }, action) {
     const newState = state;
 
@@ -44,6 +40,14 @@ function todoReducer(state = {
     }
 }
 
+export let createTodoActions = (todoStore) => {
+    return {
+        addTodo: () => { todoStore.dispatch(actionCreators.createAddTodoAction()) },
+        removeTodo: (id) => { todoStore.dispatch(actionCreators.createRemoveTodoAction(id)) },
+        toggleTodo: (id) => { todoStore.dispatch(actionCreators.createToggleTodoAction(id)) },
+        editContent: content => { todoStore.dispatch(actionCreators.createEditContentAction(content)) }
+    };
+}
 
 // store
-export let todoStore = createStore(todoReducer);
+export let createTodoStore = (state) => createStore(todoReducer, state);
