@@ -1,31 +1,9 @@
-﻿require('babel-polyfill');
-const babelResolver = require('babel-resolver');
-const path = require('path');
-require('babel-register')({
-    presets: [
-        require.resolve('babel-preset-env'),
-    ],
-    ignore: /node_modules/,
-    resolveModuleSource: babelResolver(__dirname, path.resolve(__dirname, '../app')),
-});
+﻿require('babel-register')
 
-const appRenderder = require('./index.js');
-const app = require('./app.js');
+const { initWidgetManager } = require('./widgets');
 
-const renderApp = (state, callback) => {
-    if (state.todoLoaded) {
-        const result = appRenderder.renderServer(state);
+module.exports = function (callback, html) {
+    const widgetManager = initWidgetManager(false);
 
-        callback(null, result);
-    }
-}
-
-module.exports = function (callback) {
-    const todoStore = app.todoStore;
-
-    renderApp(todoStore.getState(), callback);
-
-    todoStore.subscribe(() => {
-        renderApp(todoStore.getState(), callback);
-    })
+    widgetManager.renderServer((result) => callback(null, result), html);
 };

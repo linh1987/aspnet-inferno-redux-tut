@@ -5,4 +5,4 @@ try {
 
 }
 
-export { windowAvailable };
+export default windowAvailable;

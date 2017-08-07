@@ -14,6 +14,7 @@ var defaultState = {
     todoLoaded: false,
     loading: false
 }
+
 // reducer
 function todoReducer(state = defaultState, action) {
     const newState = state;

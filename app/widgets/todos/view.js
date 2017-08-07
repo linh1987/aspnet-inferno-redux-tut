@@ -1,8 +1,9 @@
 require('babel-polyfill');
 import Inferno from 'inferno';
 import InfernoServer from 'inferno-server';
+import windowAvailable from '../../utils/windowAvailable';
 
-var TodoDetails = ({ todo, actions }) => {
+const TodoDetails = ({ todo, actions }) => {
     return (
         <li>
             <button onClick={() => actions.toggleTodo(todo.id)}>Toggle</button>
@@ -16,7 +17,7 @@ var TodoDetails = ({ todo, actions }) => {
     );
 };
 
-var TodoList = ({ todos, actions }) => {
+const TodoList = ({ todos, actions }) => {
     return (
         <div>
             <ul>
@@ -28,7 +29,7 @@ var TodoList = ({ todos, actions }) => {
     );
 };
 
-var AddTodo = ({ editContent, actions }) => {
+const AddTodo = ({ editContent, actions }) => {
     return (
         <div>
             <input type="text" value={editContent} placeholder="Enter your todo here" onChange={(event) => actions.editContent(event.target.value)} />
@@ -37,36 +38,29 @@ var AddTodo = ({ editContent, actions }) => {
     );
 };
 
-var TodoWidget = ({ actions, todoData, renderJson }) => {
+const TodoWidget = ({ actions, todoData, renderJson }) => {
     return (<div initialState={JSON.stringify(todoData)}>
         <TodoList actions={actions} todos={todoData.todos} />
         <AddTodo actions={actions} editContent={todoData.editContent} />
     </div>);
 }
 
-export var renderServer = (todoData, todoActions) => {
+export const renderServer = (todoData, todoActions) => {
     return InfernoServer.renderToString(<TodoWidget actions={todoData.actions} todoData={todoData} renderJson={true} />);
 }
 
-export var render = (todoData, todoActions) => {
+export const render = (bindingSelector, todoData, todoActions) => {
     Inferno.render(<TodoWidget actions={todoActions} todoData={todoData} />,
-        document.getElementById('app')
+        document.getElementById(bindingSelector)
     );
 };
 
-export var getInitialState = () => {
-    var windowAvailable = false;
-    try {
-        windowAvailable = !!(window || null);
-    } catch (e) {
-
-    }
-
+export const getInitialState = (bindingSelector) => {
     if (!windowAvailable) {
         return null;
     }
 
-    const appContainer = document.getElementById('app');
+    const appContainer = document.getElementById(bindingSelector);
 
     if (appContainer.childNodes.length > 0 && appContainer.firstChild.getAttribute) {
         return appContainer.firstChild.getAttribute("initialState");
