@@ -9,17 +9,6 @@ require('babel-register')({
     resolveModuleSource: babelResolver(__dirname, path.resolve(__dirname, '../app')),
 });
 
-//var appConnector = require('./app/core-connector');
-
-//console.log(appConnector);
-//appConnector(function (err, data) {
-//    console.log(err);
-//    console.log('..................')
-//    console.log(data);
-//}, "<html><head></head><body><div id=\"app\"></div></body></html>");
-
-
-
 const { initWidgetManager } = require('./app/widgets');
 
 const html = "<html><head></head><body><div id=\"app\"></div></body></html>"
@@ -38,4 +27,3 @@ initWidgetManager(false).renderServer(noop, html);
 initWidgetManager(false).renderServer(noop, html);
 initWidgetManager(false).renderServer(noop, html);
 initWidgetManager(false).renderServer((result) => callback(null, result), html);
-//widgetManager.renderServer((result) => callback(null, result), html);

@@ -1,4 +1,4 @@
-﻿import * as todo from './todos/index';
+﻿import { widget as todo } from './todos/index';
 import cheerio from 'cheerio';
 import { combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga'
@@ -6,26 +6,13 @@ import { createStore, applyMiddleware } from 'redux';
 
 let widgetRegistry = [];
 
-//utility function, could get some use of pattern matching but I'm too stupid to do that
-const injectWidget = (widget) => {
-    let widgetEntry = {
-        id: widget.bindingId,
-        reducer: widget.reducer,
-        saga: widget.saga,
-        render: (store) => widget.renderWidget(store)(store.getState()[widget.bindingId]),
-        renderServer: (store) => widget.renderServerWidget(store)(store.getState()[widget.bindingId]),
-        init: (store) => widget.initWidget(store),
-        ready: (store) => widget.isWidgetInitialized(store.getState()[widget.bindingId])
-    }
-
-    widgetRegistry.push(widgetEntry);
-}
+widgetRegistry.push(todo);
 
 const buildReducers = (registry) => {
     let reducers = {};
 
-    for (let i = 0; i < widgetRegistry.length; i++) {
-        reducers[widgetRegistry[i].id] = widgetRegistry[i].reducer;
+    for (let i = 0; i < registry.length; i++) {
+        reducers[registry[i].id] = registry[i].reducer;
     }
 
     return reducers;
@@ -52,8 +39,6 @@ const renderWidgets = (doc, widgets, store) => {
 
     return doc.html();
 }
-
-injectWidget(todo);
 
 export let initWidgetManager = (renderToDOM) => {
     const sagaMiddleware = createSagaMiddleware();

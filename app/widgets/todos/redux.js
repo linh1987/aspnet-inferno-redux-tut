@@ -67,16 +67,3 @@ export let createTodoActions = (todoStore) => {
 }
 
 export let reducer = todoReducer;
-// store
-//export let createTodoStore = (state) =>  {    
-//    let newState = {
-//        ...defaultState,
-//        ...state
-//    };
-
-//    const todoStore =  createStore(todoReducer, newState, applyMiddleware(sagaMiddleware));
-
-//    sagaMiddleware.run(todoSaga);
-
-//    return todoStore;
-//}

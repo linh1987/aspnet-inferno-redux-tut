@@ -4,6 +4,10 @@
 } from './redux.js'
 
 import {
+    makeWidget
+} from '../utils/makeWidget';
+
+import {
     render,
     renderServer,
     getInitialState
@@ -43,4 +47,4 @@ let isWidgetInitialized = (state) => {
     return state.todoLoaded === true;
 }
 
-export { bindingId, reducer, saga, renderWidget, renderServerWidget, initWidget, isWidgetInitialized }
+export const widget = makeWidget(bindingId, reducer, saga, renderWidget, renderServerWidget, initWidget, isWidgetInitialized);
