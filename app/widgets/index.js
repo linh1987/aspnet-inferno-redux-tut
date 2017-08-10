@@ -1,5 +1,4 @@
 ﻿import { widget as todo } from './todos/index';
-import cheerio from 'cheerio';
 import { combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux';
@@ -11,8 +10,8 @@ widgetRegistry.push(todo);
 const buildReducers = (registry) => {
     let reducers = {};
 
-    for (let i = 0; i < registry.length; i++) {
-        reducers[registry[i].id] = registry[i].reducer;
+    for (let i = 0; i < widgetRegistry.length; i++) {
+        reducers[widgetRegistry[i].id] = widgetRegistry[i].reducer;
     }
 
     return reducers;
@@ -67,20 +66,19 @@ export let initWidgetManager = (renderToDOM) => {
 
     return {
         renderServer: (callback, html) => {
-            const $ = cheerio.load(html);
-            let availableWidgets = findWidgets($, widgetRegistry);
+            let availableWidgets = findWidgets(html, widgetRegistry);
 
             for (let i = 0; i < availableWidgets.length; i++) {
                 widgetRegistry[i].init(store);
             }
 
             if (isWidgetsReady(availableWidgets)) {
-                callback(renderWidgets($, availableWidgets, store));
+                callback(renderWidgets(html, availableWidgets, store));
             }
 
             store.subscribe(() => {
                 if (isWidgetsReady(availableWidgets)) {
-                    callback(renderWidgets($, availableWidgets, store));
+                    callback(renderWidgets(html, availableWidgets, store));
                 }
             })
         }

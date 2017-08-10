@@ -1,5 +1,4 @@
-﻿var fetch = require('node-fetch');
-
+﻿
 /**
  * Parses the JSON returned by a network request
  *
@@ -8,7 +7,7 @@
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
-  return response.json();
+    return response.json();
 }
 
 /**
@@ -19,13 +18,13 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
+    if (response.status >= 200 && response.status < 300) {
+        return response;
+    }
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
 }
 
 /**
@@ -37,7 +36,7 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
+    return fetch(url, options)
+        .then(checkStatus)
+        .then(parseJSON);
 }

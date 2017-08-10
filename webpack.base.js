@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -53,13 +54,11 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: 'appscript.ejs',
       inject: true, 
       filename: path.resolve(__dirname, 'Views/Shared/_AppScript.cshtml'),
-      chunks: ['main']
     }),
-    new ExtractTextPlugin('styles.[hash].css')
+    new ExtractTextPlugin('styles.[hash].css'),
   ]
 };

@@ -1,6 +1,5 @@
 require('babel-polyfill');
 import Inferno from 'inferno';
-import InfernoServer from 'inferno-server';
 import windowAvailable from '../../utils/windowAvailable';
 
 const TodoDetails = ({ todo, actions }) => {
