@@ -3,3 +3,5 @@ dist
 bin
 obj
 Views/Shared/_AppScript.cshtml
+.vs 
+*.suo
